@@ -17,7 +17,7 @@ public class Car {
     @Id // JPA mappings
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Just for the id column or primary key
     @Column
-    private Long car_id;
+    public Long car_id;
 
     @Column
     private String model;
@@ -34,6 +34,6 @@ public class Car {
     @Column
     private Integer year;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car_id")
     private Set<Reservation> reservation = new HashSet<>();
 }

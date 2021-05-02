@@ -1,9 +1,11 @@
 package com.carrental.carrent.entity;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 //Different entities for each table in MySQL
+
 
 @Entity
 @Table(name="reservations")
@@ -17,13 +19,13 @@ public class Reservation {
     @Column
     private Long reservation_id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Car.class)
     @JoinColumn(name="car_id")
-    private Long car_id;
+    private Car car_id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Client.class)
     @JoinColumn(name="client_id")
-    private Long client_id;
+    private Client client_id;
 
 
     private LocalDate start;

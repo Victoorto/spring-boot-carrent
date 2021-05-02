@@ -26,12 +26,9 @@ public class Client {
     private String  mail;
 
     @Column
-    private String password;
-
-    @Column
     private Integer age;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client_id", cascade = CascadeType.ALL)
     private Set<Reservation> reservation = new HashSet<>();
 
 
