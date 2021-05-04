@@ -18,22 +18,19 @@ public class CarController {
     @Autowired
     private CarRepository carRepository;
 
-    @GetMapping(path = "/cars/{id}")
-    public String getCar(@PathVariable("Id")Long id){
-
-        Optional<Car> car = carRepository.findById(id);
-        if(car.isPresent()){
-            return "show car";
-        }
-        return null;
+    @GetMapping(path = "/{id}")
+    public Car getCar(@PathVariable("Id")Long id){
+        return carRepository.findById(id).get();
 
     }
 
-    @RequestMapping("/availableCars")
-    public String availableCars(@RequestParam("StartDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate StartDate, @RequestParam("EndDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate EndDate, Model model){
-        Optional<Car> Cars = carRepository.availableCars(StartDate, EndDate);
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public Model getAvailableCars(@RequestParam("StartDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate StartDate, @RequestParam("EndDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate EndDate, Model model){
+
+        Optional<Car> Cars = carRepository.Cars2(StartDate, EndDate);
         model.addAttribute("Cars", Cars);
-        return "display Cars";
+        return model;
     }
 
     @PostMapping
@@ -42,14 +39,15 @@ public class CarController {
             return "Car Added";
     }
 
-    @RequestMapping("/availableCarsBrand")
-    public String aviailableCarsBrand(@RequestParam("StartDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate StartDate, @RequestParam("EndDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate EndDate,@RequestParam("Brand") String Brand ,Model model){
+    @RequestMapping(path = "/availableCarsBrand")
+    @ResponseBody
+    public Model getAviailableCarsBrand(@RequestParam("StartDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate StartDate, @RequestParam("EndDate")  @DateTimeFormat(pattern = "dd-MM-yyyy")  LocalDate EndDate,@RequestParam("Brand") String Brand ,Model model){
         Optional<Car> Cars = carRepository.availableCarsBrand(StartDate, EndDate, Brand);
         model.addAttribute("Cars", Cars);
-        return "display cars";
+        return model;
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/delete")
     public String removeCar(@PathVariable("Id")Long id){
         carRepository.deleteById(id);
         return "deleted";
