@@ -1,13 +1,13 @@
 package com.carrental.carrent.controller;
 
-import com.carrental.carrent.dao.ClientRepository;
-import com.carrental.carrent.entity.Car;
+
 import com.carrental.carrent.entity.Client;
+import com.carrental.carrent.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+
 
 
 @Controller
@@ -15,23 +15,21 @@ import java.util.Optional;
 public class ClientController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    ClientServices clientServices;
 
     @GetMapping(path = "/{id}")
-    public Client getClient(@PathVariable("Id")Long id){
-        return clientRepository.findById(id).get();
+    public void getClient(@PathVariable("Id")Long id){
+        clientServices.getClientById(id);
     }
 
     @PostMapping
-    public String addClient(@RequestBody Client client){
-        clientRepository.save(client);
-        return "Client Added";
+    public void addClient(@RequestBody Client client){
+      clientServices.addClient(client);
     }
 
     @DeleteMapping(path = "/delete")
-    public String removeClient(@PathVariable("Id")Long id){
-        clientRepository.deleteById(id);
-        return "deleted";
+    public void removeClient(@PathVariable("Id")Long id){
+        clientServices.removeClient(id);
     }
 
 
