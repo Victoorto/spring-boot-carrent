@@ -34,6 +34,12 @@ public class Car {
     @Column
     private Integer year;
 
+    @Column
+    private String img_url;
+
+    @Column
+    private Integer price;
+
     @OneToMany(mappedBy = "car_id")
     private Set<Reservation> reservation = new HashSet<>();
 }
