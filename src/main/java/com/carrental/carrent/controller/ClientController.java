@@ -22,7 +22,7 @@ public class ClientController {
         clientServices.getClientById(id);
     }
 
-    @PostMapping
+    @PostMapping(path="/addClient")
     public void addClient(@RequestBody Client client){
       clientServices.addClient(client);
     }

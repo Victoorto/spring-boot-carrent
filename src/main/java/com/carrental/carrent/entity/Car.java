@@ -40,6 +40,9 @@ public class Car {
     @Column
     private Integer price;
 
+    @Column
+    private String carType;
+
     @OneToMany(mappedBy = "car_id")
     private Set<Reservation> reservation = new HashSet<>();
 }

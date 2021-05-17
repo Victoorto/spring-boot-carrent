@@ -11,8 +11,6 @@ import java.util.Optional;
 @CrossOrigin("http://localhost:4200")
 public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 
-
-
     //filter by client
     @Query(value = "SELECT r.* FROM reservations AS r WHERE r.client_id = id", nativeQuery = true)
     Optional<Reservation> getReservationByClientId(@Param("Id")Long id);

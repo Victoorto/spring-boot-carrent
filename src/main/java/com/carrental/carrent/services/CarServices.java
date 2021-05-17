@@ -4,6 +4,8 @@ package com.carrental.carrent.services;
 import com.carrental.carrent.dao.CarRepository;
 import com.carrental.carrent.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -23,24 +25,21 @@ public class CarServices {
     }
 
     //Get available cars without brand
-    public Model getAvailableCars(LocalDate StartDate, LocalDate EndDate, Model model){
-        Optional<Car> Cars = carRepository.availableCars(StartDate, EndDate);
-        model.addAttribute("Cars", Cars);
-        return model;
+    public Page getAvailableCars(LocalDate StartDate, LocalDate EndDate,Pageable pageable){
+        Page<Car> Cars = carRepository.availableCars(StartDate, EndDate, pageable);
+        return Cars;
     }
 
     //Get available cars with brand
-    public Model getAvailableCarsBrand(LocalDate StartDate, LocalDate EndDate, String Brand, Model model){
-        Optional<Car> Cars = carRepository.availableCarsBrand(StartDate, EndDate, Brand);
-        model.addAttribute("Cars", Cars);
-        return model;
+    public Page getAvailableCarsBrand(LocalDate StartDate, LocalDate EndDate, String Brand, Pageable pageable){
+        Page<Car> Cars = carRepository.availableCarsBrand(StartDate, EndDate, Brand, pageable);
+        return Cars;
     }
 
     //Add a new car
     public void addCar(Car car){
         carRepository.save(car);
     }
-
 
     //Delete a car
     public void removeCar(Long id){

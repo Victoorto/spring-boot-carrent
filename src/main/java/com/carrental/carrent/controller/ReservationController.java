@@ -19,12 +19,12 @@ public class ReservationController {
         reservationServices.getReservationById(Id);
     }
 
-    @PostMapping
+    @PostMapping(path="/addReservation")
     public void addReservation(@RequestBody Reservation reservation){
         reservationServices.addREservation(reservation);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path="/delete")
     public void deleteReservation(Long Id){
         reservationServices.removeReservation(Id);
     }
